@@ -1,6 +1,4 @@
 
-all: build
-
 export GO111MODULE=on
 
 unit-test:
