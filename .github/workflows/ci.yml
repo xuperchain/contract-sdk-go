@@ -1,4 +1,8 @@
-on: [push, pull_request]
+# on: [push, pull_request]
+on:
+  push:
+    branches:
+      - pipeline
 
 name: CI
 jobs:
@@ -25,4 +29,3 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           file: ./coverage.txt
-
