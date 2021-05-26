@@ -13,5 +13,5 @@ test:unit-test
 lint:
 	go vet ./...
 
-coverage:
+coverage:g
 	go test -coverprofile=coverage.txt -covermode=atomic ./...
