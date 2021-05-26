@@ -2,8 +2,6 @@
 all: build
 
 export GO111MODULE=on
-install:
-	go install github.com/xuperchain/xdev
 
 unit-test:
 	go test ./...
