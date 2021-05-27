@@ -12,7 +12,8 @@ function deploy() {
         type: type,
         init_args: {
             "creator": "XC1111111111111111@xuper"
-        }
+        },
+        options: { "account": "XC1111111111111111@xuper" }
     });
 }
 

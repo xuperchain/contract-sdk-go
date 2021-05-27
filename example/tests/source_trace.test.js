@@ -13,6 +13,7 @@ function deploy(totalSupply) {
         init_args: {
             "admin": "XC1111111111111111@xuper"
         },
+        options: { "account": "XC1111111111111111@xuper" }
     });
 }
 
