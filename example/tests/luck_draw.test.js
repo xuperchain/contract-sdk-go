@@ -10,7 +10,9 @@ function deploy(totalSupply) {
         code: codePath,
         lang: lang,
         type: type,
-        init_args: { "admin": "xchain" },
+        init_args: {
+            "admin": "XC1111111111111111@xuper"
+        },
     });
 }
 
@@ -30,7 +32,7 @@ Test("LuckDraw", function (t) {
     resp = c.Invoke("StartLuckDraw", {}, { "account": "nobody" })
     assert.equal(resp.Message, "you do not have permission to call this method")
 
-    resp = c.Invoke("StartLuckDraw", { "seed": "100" }, { "account": "xchain" })
+    resp = c.Invoke("StartLuckDraw", { "seed": "100" }, { "account": "XC1111111111111111@xuper" })
     assert.equal(resp.Message, "")
     assert.equal(resp.Status, 200)
     resp = c.Invoke("GetResult", {})

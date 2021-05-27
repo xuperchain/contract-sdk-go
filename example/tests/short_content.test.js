@@ -12,7 +12,9 @@ function deploy() {
         code: codePath,
         lang: lang,
         type: type,
-        init_args: { "owner": "xchain" }
+        init_args: {
+            "owner": "XC1111111111111111@xuper"
+        }
     });
 }
 
