@@ -26,11 +26,10 @@ jobs:
         with:
           file: ./coverage.txt
 
-
       - name: Install xdev
         run: |
           git clone https://github.com/xuperchain/xdev.git && cd xdev && make install
-#          go get does not work because of go mod replace
+      #          go get does not work because of go mod replace
       - name: Run Contract Example test
         run: |
-          make
+          make test
