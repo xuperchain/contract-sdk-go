@@ -28,7 +28,7 @@ jobs:
 
       - name: Install xdev
         run: |
-          git clone https://github.com/xuperchain/xdev.git && cd xdev && make install
+          git clone https://github.com/xuperchain/xdev.git && cd xdev && go build -o /usr/bin/xdev main.go
       #          go get does not work because of go mod replace
       - name: Run Contract Example test
         run: |
