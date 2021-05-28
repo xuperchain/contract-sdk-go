@@ -29,7 +29,7 @@ jobs:
 
       - name: Install xdev
         run: |
-          git clone git@github.com:xuperchain/xdev.git && cd xdev && make install
+          git clone https://github.com/xuperchain/xdev.git && cd xdev && make install
 #          go get does not work because of go mod replace
       - name: Run Contract Example test
         run: |
