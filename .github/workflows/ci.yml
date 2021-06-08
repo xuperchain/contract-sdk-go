@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Test
+      - name: Unit Test
         run: |
           make test && make coverage
 
@@ -25,3 +25,11 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           file: ./coverage.txt
+
+      - name: Install xdev
+        run: |
+          git clone https://github.com/xuperchain/xdev.git && cd xdev && make build && echo "${PWD}/bin" >> $GITHUB_PATH
+      #          go get does not work because of go mod replace
+      - name: Run Contract Example test
+        run: |
+          make example-test
