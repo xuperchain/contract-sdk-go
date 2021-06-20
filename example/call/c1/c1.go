@@ -25,6 +25,7 @@ func (c *c1) Invoke(ctx code.Context) code.Response {
 	// 发起转账
 	args := ctx.Args()
 	toaddr := string(args["to"])
+	contract := string(args["contract"])
 	amount := big.NewInt(1)
 	err := ctx.Transfer(toaddr, amount)
 	if err != nil {
@@ -35,7 +36,7 @@ func (c *c1) Invoke(ctx code.Context) code.Response {
 	callArgs := map[string][]byte{
 		"to": []byte(toaddr),
 	}
-	resp, err := ctx.Call("wasm", "c2", "invoke", callArgs)
+	resp, err := ctx.Call("native", contract, "invoke", callArgs)
 	if err != nil {
 		return code.Error(err)
 	}
