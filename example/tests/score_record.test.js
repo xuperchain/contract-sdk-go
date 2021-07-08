@@ -1,9 +1,9 @@
 var assert = require("assert");
 
-var codePath = "../wasm/score_record.wasm";
+var codePath = "../build/score_record";
 
 var lang = "go"
-var type = "wasm"
+var type = "native"
 
 function deploy() {
     return xchain.Deploy({

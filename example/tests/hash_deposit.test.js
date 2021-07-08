@@ -1,8 +1,8 @@
 var assert = require("assert");
 
-var codePath = "../wasm/hash_deposit.wasm";
+var codePath = "../build/hash_deposit";
 var lang = "go"
-var type = "wasm"
+var type = "native"
 
 function deploy() {
     return xchain.Deploy({

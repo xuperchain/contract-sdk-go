@@ -1,8 +1,8 @@
 var assert = require("assert");
 
-var codePath = "../wasm/source_trace.wasm";
+var codePath = "../build/source_trace";
 var lang = "go"
-var type = "wasm"
+var type = "native"
 
 function deploy(totalSupply) {
     return xchain.Deploy({
