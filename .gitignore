@@ -1,0 +1,6 @@
+# ignore build output
+example/build/
+
+#IDE 
+.vscode/
+.idea/

@@ -1,9 +1,9 @@
 var assert = require("assert");
 
-var codePath = "../wasm/short_content.wasm";
+var codePath = "../build/short_content";
 
 var lang = "go"
-var type = "wasm"
+var type = "native"
 
 
 function deploy() {

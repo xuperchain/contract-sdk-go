@@ -1,8 +1,8 @@
 var assert = require("assert");
 
-var codePath = "../wasm/luck_draw.wasm";
+var codePath = "../build/luck_draw";
 var lang = "go"
-var type = "wasm"
+var type = "native"
 
 function deploy(totalSupply) {
     return xchain.Deploy({
