@@ -1589,6 +1589,8 @@ func (m *Transaction) GetAuthRequire() []string {
 
 // The block struct
 type Block struct {
+	// timestamp
+	Timestamp uint64
 	// blockid generate the hash sign of the block used by sha256
 	Blockid string `protobuf:"bytes,3,opt,name=blockid,proto3" json:"blockid,omitempty"`
 	// pre_hash is the parent blockid of the block
