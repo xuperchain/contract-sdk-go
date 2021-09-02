@@ -44,7 +44,7 @@ type Context interface {
 	// QueryBlock return a block by blockid
 	QueryBlock(blockid string) (*pb.Block, error)
 
-	// Transfer transfer an amount fo a address, from address is the contract name
+	// Transfer transfer an amount to a address
 	Transfer(to string, amount *big.Int) error
 
 	// TransferAmount get transfer amount of an ContractCall
