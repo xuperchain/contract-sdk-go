@@ -190,7 +190,7 @@ func (e *erc721) Initialize(ctx code.Context) code.Response {
 	}
 	from := string(ctx.Args()["from"])
 	if from == "" {
-		return code.Errors("Missing key: supply")
+		return code.Errors("Missing key: from")
 	}
 
 	vals := e.getObject("totalsupply")
