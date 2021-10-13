@@ -184,13 +184,19 @@ func (e *erc721) setContext(ctx code.Context) {
 
 func (e *erc721) Initialize(ctx code.Context) code.Response {
 	e.setContext(ctx)
-	supplystr := string(ctx.Args()["supply"])
-	if supplystr == "" {
-		return code.Errors("Missing key: supply")
+	sup, ok := ctx.Args()["supply"]
+	//supplystr := string(ctx.Args()["supply"])
+	if !ok {
+		return code.Errors("Missing key1: supply")
 	}
+	supplystr := string(sup)
+	if supplystr == "" {
+		return code.Errors("Missing key2: supply")
+	}
+
 	from := string(ctx.Args()["from"])
 	if from == "" {
-		return code.Errors("Missing key: from")
+		return code.Errors("Missing key3: supply")
 	}
 
 	vals := e.getObject("totalsupply")
@@ -199,7 +205,7 @@ func (e *erc721) Initialize(ctx code.Context) code.Response {
 		num, _ := strconv.ParseInt(s, 10, 64)
 		for _, o := range *vals {
 			if num == o {
-				break
+				return code.OK(nil)
 			}
 		}
 		*vals = append(*vals, num)
@@ -237,6 +243,8 @@ func (e *erc721) Invoke(ctx code.Context) code.Response {
 		return e.Approve(ctx)
 	case "approveAll":
 		return e.ApproveAll(ctx)
+	case "create":
+		return e.Initialize(ctx)
 	default:
 		return code.Errors("Invalid action " + action)
 	}
@@ -372,6 +380,8 @@ func (e *erc721) Query(ctx code.Context) code.Response {
 		return e.balance(ctx)
 	case "approvalOf":
 		return e.approval(ctx)
+	case "tokenList":
+		return e.tokenList(ctx)
 	default:
 		return code.Errors("Invalid action " + action)
 	}
@@ -418,6 +428,21 @@ func (e *erc721) balance(ctx code.Context) code.Response {
 
 	resVal := strconv.Itoa(len(*bvals))
 	return code.OK([]byte(resVal))
+}
+
+func (e *erc721) tokenList(ctx code.Context) code.Response {
+	from := string(ctx.Args()["from"])
+	if from == "" {
+		return code.Errors("Missing key: from")
+	}
+
+	bkey := e.makeBalanceOfKey(from)
+	value, err := ctx.GetObject([]byte(bkey))
+	if err != nil {
+		log.Printf("balance: get key:[%v] no exist", bkey)
+		return code.Errors("from donot have digit asset")
+	}
+	return code.OK(value)
 }
 
 func (e *erc721) approval(ctx code.Context) code.Response {
