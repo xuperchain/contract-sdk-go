@@ -68,7 +68,12 @@ func (c *contractContext) Args() map[string][]byte {
 }
 
 func (c *contractContext) Caller() string {
-	return c.callArgs.GetInitiator()
+	caller := c.callArgs.GetCaller()
+	//  fall back toInitiator if caller is not set
+	if caller == "" {
+		caller = c.callArgs.GetInitiator()
+	}
+	return caller
 }
 
 func (c *contractContext) Initiator() string {
