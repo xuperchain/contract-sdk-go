@@ -1,6 +1,13 @@
 # ignore build output
 example/build/
 
+
+#ignore all binary file
+*
+!/**/
+!*.*
+
+
 #IDE 
 .vscode/
 .idea/
