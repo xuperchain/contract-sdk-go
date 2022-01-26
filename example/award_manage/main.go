@@ -106,8 +106,8 @@ func (am *awardManage) Balance(ctx code.Context) code.Response {
 
 func (am *awardManage) Allowance(ctx code.Context) code.Response {
 	args := struct {
-		From string `json:"from,excludes=/"`
-		To   string `json:"to,excludes=/"`
+		From string `json:"from" validate:"excludes=/"`
+		To   string `json:"to" validate:"excludes=/"`
 	}{}
 	if err := code.Unmarshal(ctx.Args(), &args); err != nil {
 		return code.Error(err)
