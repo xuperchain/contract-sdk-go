@@ -20,7 +20,7 @@ const (
 
 type assetType struct {
 	TypeID   string `json:"type_id" validate:"required,excludes=/"`
-	TypeDesc string `json:"type_desc" validat:"required"`
+	TypeDesc string `json:"type_desc" validate:"required"`
 }
 
 type asset struct {
