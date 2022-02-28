@@ -48,6 +48,30 @@ func (c *features) Transfer(ctx code.Context) code.Response {
 	}
 	return code.OK(nil)
 }
+
+func (c *features) Caller(ctx code.Context) code.Response {
+	return code.OK([]byte(ctx.Caller()))
+}
+func (c *features) Call(ctx code.Context) code.Response {
+	contract := ctx.Args()["contract"]
+	method := ctx.Args()["method"]
+	module, ok := ctx.Args()["module"]
+	var moduleStr string
+	if !ok {
+		moduleStr = string(module)
+	} else {
+		moduleStr = "native"
+	}
+	ctx.Logf(string(contract))
+	ctx.Logf(string(method))
+	_ = moduleStr
+	resp, err := ctx.Call(moduleStr, "features2", "Caller", ctx.Args())
+	if err != nil {
+		return code.Error(err)
+	}
+	return code.OK(resp.Body)
+
+}
 func main() {
 	driver.Serve(new(features))
 }
