@@ -62,10 +62,7 @@ func (c *features) Call(ctx code.Context) code.Response {
 	} else {
 		moduleStr = "native"
 	}
-	ctx.Logf(string(contract))
-	ctx.Logf(string(method))
-	_ = moduleStr
-	resp, err := ctx.Call(moduleStr, "features2", "Caller", ctx.Args())
+	resp, err := ctx.Call(moduleStr, string(contract), string(method), ctx.Args())
 	if err != nil {
 		return code.Error(err)
 	}
