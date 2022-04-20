@@ -79,6 +79,16 @@ func (am *awardManage) AddAward(ctx code.Context) code.Response {
 	if err := ctx.PutObject([]byte(TOTAL_SUPPLY), []byte(totalSupply.String())); err != nil {
 		return code.Error(err)
 	}
+
+	masterBalanceBytes, err := ctx.GetObject([]byte(BALANCEPRE + initiator))
+	if err != nil {
+		return code.Error(errors.New("get caller balance error"))
+	}
+	masterbalance, _ := new(big.Int).SetString(string(masterBalanceBytes), 10)
+	masterbalance = masterbalance.Add(masterbalance, args.Amount)
+	if err := ctx.PutObject([]byte(BALANCEPRE+initiator), []byte(masterbalance.String())); err != nil {
+		return code.Error(err)
+	}
 	return code.OK([]byte(totalSupply.String()))
 }
 
