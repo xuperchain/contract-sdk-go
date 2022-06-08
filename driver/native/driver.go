@@ -3,6 +3,7 @@ package native
 import (
 	"log"
 	"net"
+	"net/url"
 	"os"
 	"os/signal"
 	"strconv"
@@ -18,6 +19,9 @@ const (
 	xchainPingTimeout = "XCHAIN_PING_TIMEOUT"
 	xchainCodePort    = "XCHAIN_CODE_PORT"
 	xchainChainAddr   = "XCHAIN_CHAIN_ADDR"
+	// XCHAIN_CODE_ADDR is standard networking address
+	// see documentation for net.Listen in standard linrary for more detials
+	xchainCodeAddr = "XCHAIN_CODE_ADDR"
 )
 
 type driver struct {
@@ -31,13 +35,22 @@ func New() code.Driver {
 func (d *driver) Serve(contract code.Contract) {
 	chainAddr := os.Getenv(xchainChainAddr)
 	codePort := os.Getenv(xchainCodePort)
+	codeAddr := os.Getenv(xchainCodeAddr)
 
 	if chainAddr == "" {
 		panic("empty XCHAIN_CHAIN_ADDR env")
 	}
-
-	if codePort == "" {
+	if codeAddr == "" && codePort == "" {
 		panic("empty XCHAIN_CODE_PORT env")
+	}
+
+	listenAddress := "127.0.0.1:" + codePort
+	if codeAddr != "" {
+		uri, err := url.Parse(codeAddr)
+		if err != nil {
+			panic(err)
+		}
+		listenAddress = uri.Host + uri.Path
 	}
 
 	nativeCodeService := newNativeCodeService(chainAddr, contract)
@@ -45,7 +58,7 @@ func (d *driver) Serve(contract code.Contract) {
 	pbrpc.RegisterNativeCodeServer(rpcServer, nativeCodeService)
 
 	var listener net.Listener
-	listener, err := net.Listen("tcp", "127.0.0.1:"+codePort)
+	listener, err := net.Listen("tcp", listenAddress)
 	if err != nil {
 		panic(err)
 	}
